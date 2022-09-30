@@ -10,28 +10,11 @@ import co.gov.shd.model.Funcionario;
 import co.gov.shd.repository.IFuncionarioRepo;
 
 @Controller
-public class FuncionarioController {
+public class MenuController {
 
-	 @Autowired
-	 private IFuncionarioRepo repo;
-	@GetMapping("/crearf")
-	public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-		
-		//Logica
-		
-		Funcionario f = new Funcionario();
-		f.setId(2);
-	    f.setNombres("Juan Sebastian");
-	    f.setApellidos("Castro");
-		repo.save(f);
-		
-		
-		model.addAttribute("name", name);
-		return "conecta";
-	}
-	
-
-	@GetMapping("/listar")
+	@Autowired
+	private IFuncionarioRepo repo;
+	@GetMapping("/conecta")
 	public String greeting(Model model) {	
 		
 		model.addAttribute("funcionarios", repo.findAll() );

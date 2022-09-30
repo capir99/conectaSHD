@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Conecta Hacienda</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p th:text="'Hello, ' + ${name} + '!'" />
+    
+    <table>
+        <th:block th:each="func:${funcionarios}">
+            <tr>
+                <td th:text="${func.id}">...</td>
+                <td th:text="${func.nombres}">...</td>
+                <td th:text="${func.apellidos}">...</td>
+            </tr>
+        </th:block>
+    </table>
+        
+</body>
+</html>

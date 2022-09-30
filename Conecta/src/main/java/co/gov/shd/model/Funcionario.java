@@ -1,5 +1,7 @@
 package co.gov.shd.model;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,7 +14,12 @@ public class Funcionario {
 	private String nombres;
     @Column(name= "apellidos", length = 50)
 	private String apellidos;
+    @Column(name= "dependencia")
+	private int dependencia;
+    @Column(name= "fechaCumple")
+	private Date fechaCumple;
 	
+    
     //GETTERS & SETTERS
     
     public int getId() {
@@ -33,7 +40,18 @@ public class Funcionario {
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
-
+	public int getDependencia() {
+		return dependencia;
+	}
+	public void setDependencia(int dependencia) {
+		this.dependencia = dependencia;
+	}
+	public Date getFechaCumple() {
+		return fechaCumple;
+	}
+	public void setFechaCumple(Date fechaCumple) {
+		this.fechaCumple = fechaCumple;
+	}
     
     
 }

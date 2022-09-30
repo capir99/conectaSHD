@@ -1,33 +1,19 @@
 package co.gov.shd;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
-
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Service;
 
-import co.gov.shd.service.IFuncionarioService;
 
 @SpringBootApplication
-public class ConectaApplication implements CommandLineRunner {
+public class ConectaApplication{
 
-	@Autowired
-	private IFuncionarioService service;
+	private static Logger LOG = LoggerFactory.getLogger(ConectaApplication.class);
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ConectaApplication.class, args);
-		System.out.println("Iniciado");
-		
+		LOG.info("Aplicación iniciada.......");
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		service.registrar("CAMILO", "PINTO", "1015392619");
-		
-	}
-
-	
-	
-	
 }
