@@ -1,0 +1,36 @@
+
+SPRING BOOT
+
+https://www.youtube.com/watch?v=cCcItxk4uWs
+https://www.youtube.com/watch?v=KTPh5Cryl24
+
+
+MITOCODE - ECLIPSE
+https://www.youtube.com/watch?v=ltA-mIYyxhY
+https://www.youtube.com/watch?v=RyvP-GYe19s     Curso #SpringBoot - 2 Initializr
+https://www.youtube.com/watch?v=mCogBfNIFvg     Curso #SpringBoot - 3 Consola
+https://www.youtube.com/watch?v=sLY9umEahso     Curso #SpringBoot - 4 Inyección de dependencias
+https://www.youtube.com/watch?v=MC9BwnURnfg     Curso #SpringBoot - 5 Qualifier
+https://www.youtube.com/watch?v=elz3vXttR-Q     Curso #SpringBoot - 6 Spring MVC 
+Thymeleaf
+		https://spring.io/guides/gs/serving-web-content/    -> Serving Web Content with Spring MVC
+
+https://www.youtube.com/watch?v=C3Xwu7wuYAo     Curso #SpringBoot - 7 Spring Data (JPA) + Spring MVC
+
+https://www.youtube.com/watch?v=RABN1tDBN4Q     Curso #SpringBoot - 8 Servicios REST
+https://www.youtube.com/watch?v=ksLYIavT2L0     Curso #SpringBoot - 9 Spring Security
+https://www.youtube.com/watch?v=zQjZFHo8eO4     Curso #SpringBoot - 10 Spring Security Base Datos
+
+https://www.youtube.com/watch?v=HMe5uxEJH94     Curso #SpringBoot - 11 Heroku
+
+https://www.youtube.com/watch?v=yAC1M-UFN68     Curso #SpringBoot - 12 Java Full Stack
+
+
+
+******************ANGULAR
+
+https://www.youtube.com/watch?v=KTPh5Cryl24   Como hacer un CRUD en Java Spring Boot con Mysql - Listar
+
+https://www.youtube.com/watch?v=fh6YGy9BDFE    Add CSS and JS to Thymeleaf
+
+https://www.youtube.com/watch?v=QdITQ4upjME

@@ -1,7 +1,11 @@
 package co.gov.shd.service;
 
+import java.util.List;
+
+import co.gov.shd.model.Funcionario;
+
 public interface IFuncionarioService {
 
-	void registrar(String nombres, String Apellidos, String ident);
+	public List<Funcionario> listar();
 	
 }

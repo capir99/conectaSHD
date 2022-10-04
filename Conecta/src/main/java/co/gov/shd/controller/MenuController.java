@@ -18,7 +18,7 @@ public class MenuController {
 	public String greeting(Model model) {	
 		
 		model.addAttribute("funcionarios", repo.findAll() );
-		return "listar";
+		return "conecta";
 	}
 
 }

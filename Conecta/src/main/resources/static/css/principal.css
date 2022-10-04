@@ -1,0 +1,20 @@
+body {
+  background-color: #EDBB99;
+  color: black;
+  font-family: sans-serif;
+}
+
+section{
+	border: 10px solid black;	
+	height: 90vh;
+}
+
+.container{
+	border: 10px solid black;	
+
+}
+#principal{
+	width: 800px;
+	margin: 0 auto;
+	color: blue;
+}
