@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Conecta Hacienda</title> 
+    <link rel="shortcut icon" type="image/png" th:href="@{imges/favicon.ico}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link th:href="@{/css/principal.css}" rel="stylesheet" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    
+    <section>
+    	
+    	<form>
+    	  <div class="form-group row">
+		      
+		      <div class="col-sm-3">
+		    	<img th:src="@{/imges/avatar.png}" alt="..." class="fotoMask ">    
+		      </div>
+	    	  <div class="col-sm-8 containerFilter">
+	    	   
+				  <div class="form-group row rowSpace">
+				    <label class="col-sm-3 col-form-label" for="jerarquia1">Oficina Asesora/Subsecretaría</label>
+				    <div class="col-sm-9">
+					    <select class="form-control" id="jerarquia1">
+						  <option th:each="jer1:${jerarquia1}"
+						    th:value="${jer1.getId()}"
+						    th:text="${jer1.getNombre()} + '  (' + ${jer1.getCodigo()} + ')'" />
+						</select>
+					</div>
+				  </div>
+				  
+				  <div class="form-group row rowSpace">
+				    <label class="col-sm-3 col-form-label" for="jerarquia2">Dirección</label>
+				    <div class="col-sm-9">
+					    <select class="form-control" id="jerarquia2">
+						  <option th:each="jer2:${jerarquia2}"
+						    th:value="${jer2.getId()}"
+						    th:text="${jer2.getNombre()} + '  (' + ${jer2.getCodigo()} + ')'" />
+						</select>
+					</div>
+				  </div>
+				  
+				  <div class="form-group row rowSpace">
+				    <label class="col-sm-3 col-form-label" for="jerarquia2">Subdirección</label>
+				    <div class="col-sm-9">
+					    <select class="form-control" id="jerarquia3">
+						  <option th:each="jer3:${jerarquia3}"
+						    th:value="${jer3.getId()}"
+						    th:text="${jer3.getNombre()} + '  (' + ${jer3.getCodigo()} + ')'" />
+						</select>
+					</div>
+				  </div>
+				  
+				  <div class="form-group row rowSpace">
+				    <label class="col-sm-3 col-form-label" for="jerarquia2">Oficina</label>
+				    <div class="col-sm-9">
+					    <select class="form-control" id="jerarquia3">
+						  <option th:each="jer3:${jerarquia3}"
+						    th:value="${jer3.getId()}"
+						    th:text="${jer3.getNombre()} + '  (' + ${jer3.getCodigo()} + ')'" />
+						</select>
+					</div>
+				  </div>
+				  
+				  <div class="form-group row rowSpace">
+				    <label class="col-sm-3 col-form-label" for="nombres">Nombres</label>
+				    <div class="col-sm-9">
+					    <select class="form-control" id="nombres">
+						  <option>...</option>
+						</select>
+					</div>
+				  </div>
+				  
+				  <div class="form-group row rowSpace">
+				    <label class="col-sm-3 col-form-label" for="apellidos">Apellidos</label>
+				    <div class="col-sm-9">
+					    <select class="form-control" id="apellidos">
+						  <option>...</option>
+						</select>
+					</div>
+				  </div>
+				  <div class="form-group">
+				  	<button type="button" class="btn btn-secondary row col-sm-2 subButton">Consultar</button>
+				  </div>
+				  
+				  
+			  </div>
+			  
+			  
+			  
+		  </div>
+		</form>
+    </section>
+    
+	<table>
+        <th:block th:each="func:${funcionarios}">
+            <tr>
+                <td th:text="${func.id}">...</td>
+                <td th:text="${func.nombres}">...</td>
+                <td th:text="${func.apellidos}">...</td>
+            </tr>
+        </th:block>
+    </table>
+    
+    
+   
+    
+        
+</body>
+</html>

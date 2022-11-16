@@ -27,10 +27,85 @@ https://www.youtube.com/watch?v=yAC1M-UFN68     Curso #SpringBoot - 12 Java Full
 
 
 
-******************ANGULAR
+******************
 
 https://www.youtube.com/watch?v=KTPh5Cryl24   Como hacer un CRUD en Java Spring Boot con Mysql - Listar
+https://www.youtube.com/watch?v=oF3XmiHgT-I
+https://www.youtube.com/watch?v=ctwRpskAeIU
+
+
+https://www.youtube.com/watch?v=zL33FwIyZW0   JPA Query quith parameters
 
 https://www.youtube.com/watch?v=fh6YGy9BDFE    Add CSS and JS to Thymeleaf
 
 https://www.youtube.com/watch?v=QdITQ4upjME
+
+
+****************RIBBON
+
+
+https://stackoverflow.com/questions/35142959/bootstrap-carousel-w-centered-div-and-multiple-divs-showing
+
+
+****************Gradiente de colores
+https://cssgradient.io/
+
+**************** Bootstrap fa icons***************
+https://fontawesome.com/v4/icons/
+
+
+
+https://startbootstrap.com/previews/sb-admin-2
+
+https://www.thymeleaf.org/doc/articles/layouts.html
+springsecurity
+https://www.thymeleaf.org/doc/articles/springsecurity.html
+
+Replacing fragments with ajax
+https://riptutorial.com/thymeleaf/example/28530/replacing-fragments-with-ajax
+
+Paginacion Tabla 
+https://www.baeldung.com/spring-thymeleaf-pagination
+https://www.kindsonthegenius.com/how-to-implement-pagination-in-spring-boot-with-thymeleaf/
+
+Pasar Objeto a Modal
+https://java.tutorialink.com/how-to-pass-object-to-modal-dialog-in-thymeleaf/
+
+*****************
+Simple expressions:
+	Variable Expressions: ${...}
+	Selection Variable Expressions: *{...}
+	Message Expressions: #{...}
+	Link URL Expressions: @{...}
+
+Literals
+	Text literals: 'one text', 'Another one!',…
+	Number literals: 0, 34, 3.0, 12.3,…
+	Boolean literals: true, false
+	Null literal: null
+	Literal tokens: one, sometext, main,…
+
+Text operations:
+	String concatenation: +
+	Literal substitutions: |The name is ${name}|
+
+Arithmetic operations:
+	Binary operators: +, -, *, /, %
+	Minus sign (unary operator): -
+
+Boolean operations:
+	Binary operators: and, or
+	Boolean negation (unary operator): !, not
+
+Comparisons and equality:
+	Comparators: >, <, >=, <= (gt, lt, ge, le)
+	Equality operators: ==, != (eq, ne)
+
+Conditional operators:
+	If-then: (if) ? (then)
+	If-then-else: (if) ? (then) : (else)
+	Default: (value) ?: (defaultvalue)
+
+
+*************************
+

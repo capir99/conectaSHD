@@ -6,20 +6,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <p th:text="'Hello, ' + ${name} + '!'" />
-    
-    <button type="button" class="btn btn-primary">Primary</button>
-    <button type="button" class="btn btn-secondary">Secondary</button>
-    
-    <table>
-        <th:block th:each="func:${funcionarios}">
-            <tr>
-                <td th:text="${func.id}">...</td>
-                <td th:text="${func.nombres}">...</td>
-                <td th:text="${func.apellidos}">...</td>
-            </tr>
-        </th:block>
-    </table>
-        
+    <div th:fragment="contenido1>
+	    <p th:text="'Hello, ' + ${name} + '!'" />
+	    
+	    <button type="button" class="btn btn-primary">Primary</button>
+	    <button type="button" class="btn btn-secondary">Secondary</button>
+	    
+	    <table>
+	        <th:block th:each="func:${funcionarios}">
+	            <tr>
+	                <td th:text="${func.id}">...</td>
+	                <td th:text="${func.nombres}">...</td>
+	                <td th:text="${func.apellidos}">...</td>
+	            </tr>
+	        </th:block>
+	    </table>
+   </div>        
 </body>
 </html>

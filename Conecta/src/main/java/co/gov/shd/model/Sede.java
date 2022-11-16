@@ -12,10 +12,12 @@ public class Sede {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "nombre", length = 50)
+	private String nombre; 
 	@Column(name = "direccion", length = 50)
 	private String direccion; 
-	@Column(name = "telefono")
-	private int telefono;
+	@Column(name = "telefono", length = 50)
+	private String telefono;
 	@Column(name = "gps_dir", length = 100)
 	private String gps_dir;
 	
@@ -28,16 +30,23 @@ public class Sede {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	public String getDireccion() {
 		return direccion;
 	}
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	public int getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(int telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 	public String getGps_dir() {

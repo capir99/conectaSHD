@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+    </head>
+
+    <body>
+        <div th:fragment="conDep">
+        	<h1 class="h4 mb-4 text-gray-800">Dependencias</h1>  
+        
+            <script>
+                validMessage();
+		    </script>
+            
+            <button type="button" class="btn btn-success" onclick="getContent('dep/add')"><i class="fa fa-plus-square"></i></button>
+            
+		    <div class="container" style="display:none;" >
+		        <div class="alert alert-success alert-dismissable" id="alert">
+		            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		            <div id="message"></div> 
+		        </div>
+
+		    </div>
+	
+		
+			
+            <div th:if="${ not#lists.isEmpty(dependencias)}">	
+	            
+	            <table class="table" id="tab">
+				  <thead class="thead-light">
+				    <tr>
+				      <th scope="col">ID</th>
+				      <th scope="col">NOMBRE</th>
+				      <th scope="col">PADRE</th>
+				      <th scope="col">JERARQUIA</th>
+				      <th scope="col">ACCION</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr th:each="dep : ${dependencias}">
+			            <td th:text="${dep.id}" />
+			            <td th:text="${dep.nombre}" />
+			            <td th:text="${dep.id_padre != null?dep.id_padre.nombre:''}" />
+			            <td th:text="${dep.jerarquia}" />
+			            <td>
+			              
+			               <button type="button" th:id="${'cons' + dep.id}" class="btn btn-primary" data-toggle="modal" th:attr="data-target=${'#consultaModal'+dep.id}" th:data-row="${dep}"><i class="far fa-eye"></i></button>
+			               <button type="button" th:id="${'mod' + dep.id}" class="btn btn-success" data-toggle="modal" th:attr="data-target=${'#edicionModal'+dep.id}" th:data-row="${dep}"><i class="fas fa-edit"></i></button>
+			               <button type="button" th:id="${'rem' + dep.id}" class="btn btn-danger" data-toggle="modal" th:attr="data-target=${'#eliminarModal'+dep.id}" th:data-row="${dep}"><i class="far fa-trash-alt"></i></button>
+			            </td>
+			        </tr>
+				  </tbody>
+				</table>
+            
+			</div>
+			
+			
+			<footer style="font-size: large" class="panel-footer">
+			    Items encontrados [[${totalItems}]] : Page [[${currentPage}]] of [[${totalPages}]]
+			    &nbsp; &nbsp; - &nbsp;
+			    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+			        <a href="#" th:attr="onclick=|getContentPagination('dep/list','${i}')|">[[${i}]]</a>
+			        &nbsp; &nbsp;
+			        </span>
+			</footer>
+			
+			
+			<!-- Modal Consulta -->
+			<div th:each="dep : ${dependencias}" th:fragment="modal" class="modal fade" th:attr="id=${'consultaModal' + dep.id}" tabindex="-1" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="consultaModalLabel" th:text="'Conculta Reg#(' + ${dep.id} + ')'"></h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">	
+			          <div class="row">	
+			            <div class="col-lg-12 col-md-10 col-sm-10">	
+			        		<div class="card-body">	
+			        			<form>
+			        				
+			        				<div class="form-group">	
+			        					<label>Nombre: </label>
+			        					<input type="text" name="nombre" th:value="${dep.nombre}" class="form-control" disabled>
+			        				</div>
+			        				<div class="form-group">	
+			        					<label>Codigo: </label>
+			        					<input type="text" name="codigo" th:value="${dep.codigo}" class="form-control" disabled>
+			        				</div>
+			        				<div class="form-group">	
+			        					<label>Dep. Padre: </label>			
+			        					<select name="id_padre" class="form-control" disabled>
+										    <option/>
+										    <option th:each="item:${dependencias}" 
+										            th:value="${item.id}"
+										            th:text="${item.nombre}" 
+										            th:attr="selected=${dep.id_padre != null?(item.id==dep.id_padre.id?true:false):false}"/>
+										  </select>
+										 
+			        				</div>
+			        				
+			        				<div class="form-group">	
+			        					<label>Jerarquía: </label>
+			        					<input type="text" name="jerarquia" th:value="${dep.jerarquia}" class="form-control" disabled>
+			        				</div>
+
+			        			</form>
+			        		</div>
+		                </div>
+		            </div>
+			      </div>
+			      
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			      </div>
+			      
+			    </div>
+			    
+			  </div>
+			</div>
+		
+		
+			<!-- Modal edición -->
+			<div th:each="dep : ${dependencias}" th:fragment="modal" class="modal fade" th:attr="id=${'edicionModal' + dep.id}" tabindex="-1" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="editModalLabel" th:text="'Edición Reg#(' + ${dep.id} + ')'"></h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">	
+			          <div class="row">	
+			            <div class="col-lg-12 col-md-10 col-sm-10">	
+			        		<div class="card-body">	
+			        			<form th:action="@{/dep/modExec}" th:object="${dep}" method="post"> 
+			        				<input type="hidden" name="id" th:value="${dep.id}">
+			        				<div class="form-group">	
+			        					<label>Nombre: </label>
+			        					<input type="text" name="nombre" th:value="${dep.nombre}" class="form-control" placeholder="Digite el nombre" required>
+			        				</div>
+			        				<div class="form-group">	
+			        					<label>Codigo: </label>
+			        					<input type="text" name="codigo" th:value="${dep.codigo}" class="form-control" >
+			        				</div>
+			        				<div class="form-group">	
+			        					<label>Dep. Padre: </label>			
+			        					<select name="id_padre" class="form-control" >
+										    <option/>
+										    <option th:each="item:${dependencias}" 
+										            th:value="${item.id}"
+										            th:text="${item.nombre}" 
+										            th:attr="selected=${dep.id_padre != null?(item.id==dep.id_padre.id?true:false):false}"/>
+										  </select>
+										 
+			        				</div>
+			        				
+			        				<div class="form-group">	
+			        					<label>Jerarquía: </label>
+			        					<input type="text" name="jerarquia" th:value="${dep.jerarquia}" class="form-control" >
+			        				</div>
+			        				
+			        				<div class="modal-footer">
+								        <button type="submit" class="btn btn-primary">Guardar</button>
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+								    </div>
+
+			        			</form>
+			        		</div>
+		                </div>
+		            </div>
+			      </div>
+			      
+			      
+			      
+			    </div>
+			    
+			  </div>
+			</div>
+			
+			
+			<!-- Modal eliminacion -->
+			<div th:each="dep : ${dependencias}" th:fragment="modal" class="modal fade" th:attr="id=${'eliminarModal' + dep.id}" tabindex="-1" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="eliminarModalLabel" th:text="'Eliminación Reg#(' + ${dep.id} + ')'"></h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">	
+			          <div class="row">	
+			            <div class="col-lg-12 col-md-10 col-sm-10">	
+			        		<div class="card-body">	
+			        			<form th:action="@{/dep/remExec}" th:object="${dep}" method="post"> 
+			        				<input type="hidden" name="id" th:value="${dep.id}">
+			        				<p>Desea eliminar el registro</p>
+			        				<p th:text="${dep.nombre}"></p>
+			        				
+			        				<div class="modal-footer">
+								        <button type="submit" class="btn btn-primary">Confirmar</button>
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+								    </div>
+
+			        			</form>
+			        		</div>
+		                </div>
+		            </div>
+			      </div>
+			      
+			      
+			      
+			    </div>
+			    
+			  </div>
+			</div>
+			
+			
+			
+			
+			
+		
+        </div>
+    </body>
+</html>

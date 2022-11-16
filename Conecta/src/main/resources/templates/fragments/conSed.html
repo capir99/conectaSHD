@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+    </head>
+
+    <body>
+        <div th:fragment="conSed">
+        	<h1 class="h4 mb-4 text-gray-800">Sedes</h1>  
+        
+            <script>
+                validMessage();
+		    </script>
+            
+            <button type="button" class="btn btn-success" onclick="getContent('sed/add')"><i class="fa fa-plus-square"></i></button>
+            
+		    <div class="container" style="display:none;" >
+		        <div class="alert alert-success alert-dismissable" id="alert">
+		            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		            <div id="message"></div> 
+		        </div>
+
+		    </div>
+	
+		
+			
+            <div th:if="${ not#lists.isEmpty(sedes)}">	
+	            
+	            <table class="table" id="tab">
+				  <thead class="thead-light">
+				    <tr>
+				      <th scope="col">ID</th>
+				      <th scope="col">NOMBRE</th>
+				      <th scope="col">DIRECCION</th>
+				      <th scope="col">TELEFONO</th>
+				      <th scope="col">GPS_DIR</th>
+				      <th scope="col">ACCION</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr th:each="sed : ${sedes}">
+				        <td th:text="${sed.id}" />
+				        <td th:text="${sed.nombre}" />
+			            <td th:text="${sed.direccion}" />
+			            <td th:text="${sed.telefono}" />
+			            <td th:text="${sed.gps_dir}" />
+			            <td>
+			              
+			               <button type="button" th:id="${'cons' + sed.id}" class="btn btn-primary" data-toggle="modal" th:attr="data-target=${'#consultaModal'+sed.id}" th:data-row="${sed}"><i class="far fa-eye"></i></button>
+			               <button type="button" th:id="${'mod' + sed.id}" class="btn btn-success" data-toggle="modal" th:attr="data-target=${'#edicionModal'+sed.id}" th:data-row="${sed}"><i class="fas fa-edit"></i></button>
+			               <button type="button" th:id="${'rem' + sed.id}" class="btn btn-danger" data-toggle="modal" th:attr="data-target=${'#eliminarModal'+sed.id}" th:data-row="${sed}"><i class="far fa-trash-alt"></i></button>
+			            </td>
+			        </tr>
+				  </tbody>
+				</table>
+            
+			</div>
+			
+			
+			<footer style="font-size: large" class="panel-footer">
+			    Items encontrados [[${totalItems}]] : Page [[${currentPage}]] of [[${totalPages}]]
+			    &nbsp; &nbsp; - &nbsp;
+			    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+			        <a href="#" th:attr="onclick=|getContentPagination('sed/list','${i}')|">[[${i}]]</a>
+			        &nbsp; &nbsp;
+			        </span>
+			</footer>
+			
+			
+			<!-- Modal Consulta -->
+			<div th:each="sed : ${sedes}" th:fragment="modal" class="modal fade" th:attr="id=${'consultaModal' + sed.id}" tabindex="-1" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="consultaModalLabel" th:text="'Conculta Reg#(' + ${sed.id} + ')'"></h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">	
+			          <div class="row">	
+			            <div class="col-lg-12 col-md-10 col-sm-10">	
+			        		<div class="sedd-body">	
+			        			<form>
+			        				
+			        				<div class="form-group">	
+			        					<label>Nombre: </label>
+			        					<input type="text" name="nombre" th:value="${sed.nombre}" class="form-control" disabled>
+			        				</div>
+			        				
+			        				<div class="form-group">	
+			        					<label>Dirección: </label>
+			        					<input type="text" name="direccion" th:value="${sed.direccion}" class="form-control" disabled>
+			        				</div>
+			        				
+			        				<div class="form-group">	
+			        					<label>telefono: </label>
+			        					<input type="text" name="telefono" th:value="${sed.telefono}" class="form-control" disabled>
+			        				</div>
+			        							        				
+			        				<div class="form-group">	
+			        					<label>Gps dir: </label>
+			        					<input type="text" name="gps_dir" th:value="${sed.gps_dir}" class="form-control" disabled>
+			        				</div>
+
+			        			</form>
+			        		</div>
+		                </div>
+		            </div>
+			      </div>
+			      
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			      </div>
+			      
+			    </div>
+			    
+			  </div>
+			</div>
+		
+		
+			<!-- Modal edición -->
+			<div th:each="sed : ${sedes}" th:fragment="modal" class="modal fade" th:attr="id=${'edicionModal' + sed.id}" tabindex="-1" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="editModalLabel" th:text="'Edición Reg#(' + ${sed.id} + ')'"></h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">	
+			          <div class="row">	
+			            <div class="col-lg-12 col-md-10 col-sm-10">	
+			        		<div class="sedd-body">	
+			        			<form th:action="@{/sed/modExec}" th:object="${sed}" method="post"> 
+			        				<input type="hidden" name="id" th:value="${sed.id}">
+			        				
+			        				<div class="form-group">	
+			        					<label>Nombre: </label>
+			        					<input type="text" name="nombre" th:value="${sed.nombre}" class="form-control" >
+			        				</div>
+			        				
+			        				<div class="form-group">	
+			        					<label>Dirección: </label>
+			        					<input type="text" name="direccion" th:value="${sed.direccion}" class="form-control" >
+			        				</div>
+			        				
+			        				<div class="form-group">	
+			        					<label>Teléfono: </label>
+			        					<input type="text" name="telefono" th:value="${sed.telefono}" class="form-control" >
+			        				</div>
+			        				
+			        				<div class="form-group">	
+			        					<label>Gps dir: </label>
+			        					<input type="text" name="gps_dir" th:value="${sed.gps_dir}" class="form-control" >
+			        				</div>
+			        				
+			        				<div class="modal-footer">
+								        <button type="submit" class="btn btn-primary">Guardar</button>
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+								    </div>
+
+			        			</form>
+			        		</div>
+		                </div>
+		            </div>
+			      </div>
+			      
+			      
+			      
+			    </div>
+			    
+			  </div>
+			</div>
+			
+			
+			<!-- Modal eliminacion -->
+			<div th:each="sed : ${sedes}" th:fragment="modal" class="modal fade" th:attr="id=${'eliminarModal' + sed.id}" tabindex="-1" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="eliminarModalLabel" th:text="'Eliminación Reg#(' + ${sed.id} + ')'"></h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">	
+			          <div class="row">	
+			            <div class="col-lg-12 col-md-10 col-sm-10">	
+			        		<div class="sedd-body">	
+			        			<form th:action="@{/sed/remExec}" th:object="${sed}" method="post"> 
+			        				<input type="hidden" name="id" th:value="${sed.id}">
+			        				<p>Desea eliminar el registro</p>
+			        				<p th:text="${sed.direccion}"></p>
+			        				
+			        				<div class="modal-footer">
+								        <button type="submit" class="btn btn-primary">Confirmar</button>
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+								    </div>
+
+			        			</form>
+			        		</div>
+		                </div>
+		            </div>
+			      </div>
+			      
+			      
+			      
+			    </div>
+			    
+			  </div>
+			</div>
+			
+			
+			
+			
+			
+		
+        </div>
+    </body>
+</html>

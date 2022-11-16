@@ -2,29 +2,195 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
     <title>Conecta Hacienda</title> 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link th:href="@{/css/principal.css}" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" type="image/png" th:href="@{imges/favicon.ico}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="Equipo de trabajo Conecta 2022">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <link th:href="@{/css/carousel.css}" rel="stylesheet" type="text/css">
+	
+    
 </head>
 <body>
-    
-    <section>
-    	<div class="container">
-    		<h1>IMAGEN</h1>
-    	</div>
-    </section>
-    <button type="button" class="btn btn-primary">Primary</button>
-    <button type="button" class="btn btn-secondary">Secondary</button>
-    
-    <table>
-        <th:block th:each="func:${funcionarios}">
-            <tr>
-                <td th:text="${func.id}">...</td>
-                <td th:text="${func.nombres}">...</td>
-                <td th:text="${func.apellidos}">...</td>
-            </tr>
-        </th:block>
-    </table>
-        
+
+	  <div class="row" id="wrapper">
+	    
+	    <!-- Filtros  -->
+
+    	<div id="filters" class="container">
+	    	   
+	    	  <div class="text-center row row-bottom-margin">
+				<img th:src="@{/imges/conecta.png}" class="logo_con"/>    
+		      </div>
+					     
+			  <div class="form-group row row-bottom-margin">
+			    <label class="col-lg-3 col-md-5 col-sm-6 col-form-label" for="jerarquia1">Oficina Asesora/Subsecretaría</label>
+			    <div class="col-lg-8 col-md-7 col-sm-6">
+				    <select class="form-control" id="jerarquia1">
+					  <option th:each="jer1:${jerarquia1}"
+					    th:value="${jer1.getId()}"
+					    th:text="${jer1.getNombre()} + '  (' + ${jer1.getCodigo()} + ')'" />
+					</select>
+				</div>
+			  </div>
+			  
+			  <div class="form-group row row-bottom-margin">
+			    <label class="col-lg-3 col-md-5 col-sm-6 col-form-label" for="jerarquia2">Dirección</label>
+			    <div class="col-lg-8 col-md-7 col-sm-6">
+				    <select class="form-control" id="jerarquia2">
+					  <option th:each="jer2:${jerarquia2}"
+					    th:value="${jer2.getId()}"
+					    th:text="${jer2.getNombre()} + '  (' + ${jer2.getCodigo()} + ')'" />
+					</select>
+				</div>
+			  </div>
+			  
+			  <div class="form-group row row-bottom-margin">
+			    <label class="col-lg-3 col-md-5 col-sm-6 col-form-label" for="jerarquia2">Subdirección</label>
+			    <div class="col-lg-8 col-md-7 col-sm-6">
+				    <select class="form-control" id="jerarquia3">
+					  <option th:each="jer3:${jerarquia3}"
+					    th:value="${jer3.getId()}"
+					    th:text="${jer3.getNombre()} + '  (' + ${jer3.getCodigo()} + ')'" />
+					</select>
+				</div>
+			  </div>
+			  
+			  <div class="form-group row row-bottom-margin">
+			    <label class="col-lg-3 col-md-5 col-sm-6 col-form-label" for="jerarquia2">Oficina</label>
+			    <div class="col-lg-8 col-md-7 col-sm-6">
+				    <select class="form-control" id="jerarquia3">
+					  <option th:each="jer3:${jerarquia3}"
+					    th:value="${jer3.getId()}"
+					    th:text="${jer3.getNombre()} + '  (' + ${jer3.getCodigo()} + ')'" />
+					</select>
+				</div>
+			  </div>
+			  
+			  <div class="form-group row row-bottom-margin">
+			    <label class="col-lg-3 col-md-5 col-sm-6 col-form-label" for="nombres">Nombre/Apellido</label>
+			    <div class="col-lg-8 col-md-7 col-sm-6">
+				    <input class="form-control" id="nom" placeholder="Digite parte del nombre o apellido del funcionario">
+				</div>
+			  </div>
+			  
+			  <div class="row">
+			    <div class="col text-center">
+			      <button class="btn btn-default">Consultar</button>
+			    </div>
+			  </div>
+			  
+			  
+			    
+		 </div>
+	    
+	    
+	    
+	    <!-- Carrousel  -->
+	    <div id="carousel" class="container">
+	    	<div>
+			    <div id="carousel" class="carousel slide" data-interval="7000" data-ride="carousel">
+   
+			       <!-- Carousel items -->
+			        <div class="carousel-inner">
+			            <div class="active item col-lg-3 carousel-fade" >
+			                <div class="active item carousel-fade foto">
+						    	<img th:src="@{/imges/avatar.png}" alt="..." class="fotoMask ">           
+				            </div>
+			            </div>
+			            <div class="item col-lg-3 carousel-fade">
+			                <div class="active item carousel-fade foto">
+						    	<img th:src="@{/imges/avatar.png}" alt="..." class="fotoMask ">           
+				            </div>
+			            </div>
+			            
+			        </div> 
+			          
+			        
+				    
+			        <!-- Carousel nav -->
+			        <a class="carousel-control left" href="#carousel" data-slide="prev">
+			            <span class="glyphicon glyphicon-chevron-left"></span>
+			        </a>
+			        <a class="carousel-control right" href="#carousel" data-slide="next">
+			            <span class="glyphicon glyphicon-chevron-right"></span>
+			        </a>
+			        
+			        
+			    	
+			    </div>
+			</div>
+	    	
+	    	
+	    	<!-- Foto info -->
+	    	<div>
+	    	    
+	    		<div class="d-flex justify-content-center">
+						<img th:src="@{/imges/ubicacion.png}" alt="..." class="foto_data btn btn-primary" data-toggle="modal" data-target="#mapModal"> 
+						<img th:src="@{/imges/info.png}" alt="..." class="foto_data btn btn-primary" data-toggle="modal" data-target="#infoModal">           
+				</div>
+	    	
+	    	</div> 
+	    	
+	    
+	    </div>
+	    
+
+	    
+	  </div>
+
+
+
+
+	  <!-- Modal mapa -->
+	  <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg" style="width:900px;" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Ubicación piso XXX</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body ">
+		        
+		        <img th:src="@{/imges/piso.jpg}" alt="..." class="img-responsive center-block mapa"> 
+		        <img th:src="@{/imges/position2.png}" alt="..." class="img-responsive center-block punto" style="top: 250px;left: 500px;">     
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+		      </div>
+		    </div>
+		  </div>
+	  </div>	
+
+      <!-- Modal info -->
+	  <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg" style="width:900px;" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Información de contacto</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body ">
+		        
+		        ...
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	
+		      </div>
+		    </div>
+		  </div>
+	  </div>	
+	  
+
 </body>
 </html>

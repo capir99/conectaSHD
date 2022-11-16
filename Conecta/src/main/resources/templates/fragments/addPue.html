@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+    </head>
+
+    <body>
+        <div th:fragment="addPue">
+        	<h1 class="h4 mb-4 text-gray-800">Registrar puesto de trabajo</h1>  
+            
+            <div class="container">	
+	          
+	          <div class="row">	
+	            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">	
+	        		<div class="card-body">	
+	        			<form th:action="@{/pue/addExec}" th:object="${puestotrabajo}" method="post">
+	        				<div class="form-group">	
+	        					<label>Piso: </label>
+	        					<input type="number" name="piso" th:field="*{piso}" class="form-control" placeholder="Digite el piso" required>
+	        				</div>
+	        				
+	        				<div class="form-group">	
+	        					<label>Mapa: </label>
+	        					<select name="padre" th:field="*{id_mapa}" class="form-control" >
+								    <option value = ""> Seleccione el mapa </option>
+								    <option th:each="item:${mapas}"
+								            th:value="${item.id}" th:text="${item.nombre}">
+								    </option>
+								</select>
+	        				</div>
+	        				
+	        				<div class="form-group">	
+	        					<label>Coordenada X : </label>
+	        					<input type="number" name="corx" th:field="*{corx}" class="form-control" placeholder="" required>
+	        				</div>
+	        				
+	        				<div class="form-group">	
+	        					<label>Coordenada Y : </label>
+	        					<input type="number" name="cory" th:field="*{cory}" class="form-control" placeholder="" required>
+	        				</div>
+	        				
+	        				<div class="form-group">	
+	        					<label>Sede: </label>
+	        					<select name="padre" th:field="*{id_sede}" class="form-control" >
+								    <option value = ""> Seleccione la sede </option>
+								    <option th:each="item:${sedes}"
+								            th:value="${item.id}" th:text="${item.nombre}">
+								    </option>
+								</select>
+	        				</div>
+	        				
+	        				<div class="box-footer">
+	        					<button class="btn btn-success">Guardar</button>
+	        				</div>
+	        				
+	        				
+	        			</form>
+	        		
+	        		</div>
+                </div>
+              </div>
+              
+			</div>
+
+		
+        </div>
+    </body>
+</html>

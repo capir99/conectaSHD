@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+    </head>
+
+    <body>
+        <div th:fragment="addDep">
+        	<h1 class="h4 mb-4 text-gray-800">Registrar Dependencia</h1>  
+            
+            <div class="container">	
+	          
+	          <div class="row">	
+	            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">	
+	        		<div class="card-body">	
+	        			<form th:action="@{/dep/addExec}" th:object="${dependencia}" method="post">
+	        				<div class="form-group">	
+	        					<label>Nombre: </label>
+	        					<input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder="Digite el nombre" required>
+	        				</div>
+	        				<div class="form-group">	
+	        					<label>Codigo: </label>
+	        					<input type="text" name="codigo" th:field="*{codigo}" class="form-control" placeholder="Digite el código de la dependencia" required>
+	        				</div>
+	        				<div class="form-group">	
+	        					<label>Dep. Padre: </label>
+	        					<select name="padre" th:field="*{id_padre}" class="form-control" >
+								    <option value = ""> Seleccione la jeraquía si aplica </option>
+								    <option th:each="item:${dependencias}"
+								            th:value="${item.id}" th:text="${item.nombre}">
+								    </option>
+								</select>
+	        				</div>
+	        				
+	        				<div class="form-group">	
+	        					<label>Jerarquía: </label>
+	        					<input type="number" name="padre" th:field="*{jerarquia}" class="form-control" placeholder="" required>
+	        				</div>
+	        				
+	        				<div class="box-footer">
+	        					<button class="btn btn-success">Guardar</button>
+	        				</div>
+	        				
+	        				
+	        			</form>
+	        		
+	        		</div>
+                </div>
+              </div>
+              
+			</div>
+
+		
+        </div>
+    </body>
+</html>

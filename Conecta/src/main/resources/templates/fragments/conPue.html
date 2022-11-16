@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+    </head>
+
+    <body>
+        <div th:fragment="conPue">
+        	<h1 class="h4 mb-4 text-gray-800">Puestos de trabajos</h1>  
+        
+            <script>
+                validMessage();
+		    </script>
+            
+            <button type="button" class="btn btn-success" onclick="getContent('pue/add')"><i class="fa fa-plus-square"></i></button>
+            
+		    <div class="container" style="display:none;" >
+		        <div class="alert alert-success alert-dismissable" id="alert">
+		            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		            <div id="message"></div> 
+		        </div>
+
+		    </div>
+	
+		
+			
+            <div th:if="${ not#lists.isEmpty(puestotrabajos)}">	
+	            
+	            <table class="table" id="tab">
+				  <thead class="thead-light">
+				    <tr>
+				      <th scope="col">ID</th>
+				      <th scope="col">PISO</th>
+				      <th scope="col">MAPA</th>
+				      <th scope="col">COORDENADA_X</th>
+				      <th scope="col">COORDENADA_Y</th>
+				      <th scope="col">SEDE</th>
+				      <th scope="col">ACCION</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr th:each="pue : ${puestotrabajos}">
+			            <td th:text="${pue.id}" />
+			            <td th:text="${pue.piso}" />
+			            <td th:text="${pue.id_mapa != null?pue.id_mapa.nombre:''}" />
+			            <td th:text="${pue.corx}" />
+			            <td th:text="${pue.cory}" />
+			            <td th:text="${pue.id_sede != null?pue.id_sede.nombre:''}" />
+			            <td>
+			              
+			               <button type="button" th:id="${'cons' + pue.id}" class="btn btn-primary" data-toggle="modal" th:attr="data-target=${'#consultaModal'+pue.id}" th:data-row="${pue}"><i class="far fa-eye"></i></button>
+			               <button type="button" th:id="${'mod' + pue.id}" class="btn btn-success" data-toggle="modal" th:attr="data-target=${'#edicionModal'+pue.id}" th:data-row="${pue}"><i class="fas fa-edit"></i></button>
+			               <button type="button" th:id="${'rem' + pue.id}" class="btn btn-danger" data-toggle="modal" th:attr="data-target=${'#eliminarModal'+pue.id}" th:data-row="${pue}"><i class="far fa-trash-alt"></i></button>
+			            </td>
+			        </tr>
+				  </tbody>
+				</table>
+            
+			</div>
+			
+			
+			<footer style="font-size: large" class="panel-footer">
+			    Items encontrados [[${totalItems}]] : Page [[${currentPage}]] of [[${totalPages}]]
+			    &nbsp; &nbsp; - &nbsp;
+			    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+			        <a href="#" th:attr="onclick=|getContentPagination('pue/list','${i}')|">[[${i}]]</a>
+			        &nbsp; &nbsp;
+			        </span>
+			</footer>
+			
+			
+			<!-- Modal Consulta -->
+			<div th:each="pue : ${puestotrabajos}" th:fragment="modal" class="modal fade" th:attr="id=${'consultaModal' + pue.id}" tabindex="-1" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="consultaModalLabel" th:text="'Conculta Reg#(' + ${pue.id} + ')'"></h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">	
+			          <div class="row">	
+			            <div class="col-lg-12 col-md-10 col-sm-10">	
+			        		<div class="card-body">	
+			        			<form>
+			        				
+			        				<div class="form-group">	
+			        					<label>Piso: </label>
+			        					<input type="number" name="piso" th:value="${pue.piso}" class="form-control" disabled>
+			        				</div>
+			        			
+			        				<div class="form-group">	
+			        					<label>Mapa: </label>			
+			        					<select name="id_mapa" class="form-control" disabled>
+										    <option/>
+										    <option th:each="item:${mapas}" 
+										            th:value="${item.id}"
+										            th:text="${item.nombre}" 
+										            th:attr="selected=${pue.id_mapa != null?(item.id==pue.id_mapa.id?true:false):false}"/>
+										  </select>
+										 
+			        				</div>
+			        				
+			        				<div class="form-group">	
+			        					<label>Coordenada X: </label>
+			        					<input type="text" name="corx" th:value="${pue.corx}" class="form-control" disabled>
+			        				</div>
+			        				
+			        				<div class="form-group">	
+			        					<label>Coordenada Y: </label>
+			        					<input type="text" name="cory" th:value="${pue.cory}" class="form-control" disabled>
+			        				</div>
+			        				
+			        				<div class="form-group">	
+			        					<label>Sede: </label>			
+			        					<select name="id_sede" class="form-control" disabled>
+										    <option/>
+										    <option th:each="item:${sedes}" 
+										            th:value="${item.id}"
+										            th:text="${item.nombre}" 
+										            th:attr="selected=${pue.id_sede != null?(item.id==pue.id_sede.id?true:false):false}"/>
+										  </select>
+										 
+			        				</div>
+			        				
+
+			        			</form>
+			        		</div>
+		                </div>
+		            </div>
+			      </div>
+			      
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			      </div>
+			      
+			    </div>
+			    
+			  </div>
+			</div>
+		
+		
+			<!-- Modal edición -->
+			<div th:each="pue : ${puestotrabajos}" th:fragment="modal" class="modal fade" th:attr="id=${'edicionModal' + pue.id}" tabindex="-1" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="editModalLabel" th:text="'Edición Reg#(' + ${pue.id} + ')'"></h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">	
+			          <div class="row">	
+			            <div class="col-lg-12 col-md-10 col-sm-10">	
+			        		<div class="card-body">	
+			        			<form th:action="@{/pue/modExec}" th:object="${pue}" method="post"> 
+			        				<input type="hidden" name="id" th:value="${pue.id}">
+			        				<div class="form-group">	
+			        					<label>Piso: </label>
+			        					<input type="number" name="piso" th:value="${pue.piso}" class="form-control" placeholder="Digite el piso" required>
+			        				</div>
+			        			
+			        				<div class="form-group">	
+			        					<label>Mapa: </label>			
+			        					<select name="id_mapa" class="form-control" >
+										    <option/>
+										    <option th:each="item:${mapas}" 
+										            th:value="${item.id}"
+										            th:text="${item.nombre}" 
+										            th:attr="selected=${pue.id_mapa != null?(item.id==pue.id_mapa.id?true:false):false}"/>
+										  </select>
+										 
+			        				</div>
+			        				
+			        				<div class="form-group">	
+			        					<label>Coordenada X: </label>
+			        					<input type="text" name="corx" th:value="${pue.corx}" class="form-control" >
+			        				</div>
+			        				
+			        				<div class="form-group">	
+			        					<label>Coordenada Y: </label>
+			        					<input type="text" name="cory" th:value="${pue.cory}" class="form-control" >
+			        				</div>
+			        				
+			        				<div class="form-group">	
+			        					<label>Sede: </label>			
+			        					<select name="id_sede" class="form-control">
+										    <option/>
+										    <option th:each="item:${sedes}" 
+										            th:value="${item.id}"
+										            th:text="${item.nombre}" 
+										            th:attr="selected=${pue.id_sede != null?(item.id==pue.id_sede.id?true:false):false}"/>
+										  </select>
+										 
+			        				</div>
+			        				
+			        				<div class="modal-footer">
+								        <button type="submit" class="btn btn-primary">Guardar</button>
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+								    </div>
+
+			        			</form>
+			        		</div>
+		                </div>
+		            </div>
+			      </div>
+			      
+			      
+			      
+			    </div>
+			    
+			  </div>
+			</div>
+			
+			
+			<!-- Modal eliminacion -->
+			<div th:each="pue : ${puestotrabajos}" th:fragment="modal" class="modal fade" th:attr="id=${'eliminarModal' + pue.id}" tabindex="-1" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="eliminarModalLabel" th:text="'Eliminación Reg#(' + ${pue.id} + ')'"></h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">	
+			          <div class="row">	
+			            <div class="col-lg-12 col-md-10 col-sm-10">	
+			        		<div class="card-body">	
+			        			<form th:action="@{/pue/remExec}" th:object="${pue}" method="post"> 
+			        				<input type="hidden" name="id" th:value="${pue.id}">
+			        				<p>Desea eliminar el registro</p>
+			        				<p th:text="${pue.id}"></p>
+			        				
+			        				<div class="modal-footer">
+								        <button type="submit" class="btn btn-primary">Confirmar</button>
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+								    </div>
+
+			        			</form>
+			        		</div>
+		                </div>
+		            </div>
+			      </div>
+			      
+			      
+			      
+			    </div>
+			    
+			  </div>
+			</div>
+			
+			
+			
+			
+			
+		
+        </div>
+    </body>
+</html>

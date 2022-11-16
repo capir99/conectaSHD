@@ -1,20 +1,56 @@
 body {
-  background-color: #EDBB99;
+  /*background-color: rgb(255, 255, 255);
+  background: rgb(255,255,255);
+  background: radial-gradient(circle, rgba(255,255,255,1) 16%, rgba(218,224,230,0.24413515406162467) 52%, rgba(255,255,255,1) 86%);
+  */
+  background: rgb(255,255,255);
+background: linear-gradient(90deg, rgba(255,255,255,1) 27%, rgba(218,230,226,0.24413515406162467) 57%, rgba(238,255,255,1) 82%);
+  
   color: black;
   font-family: sans-serif;
 }
 
 section{
-	border: 10px solid black;	
-	height: 90vh;
+	border: 1px solid black;	
+	/* height: 50vh; */
 }
 
-.container{
-	border: 10px solid black;	
-
+.containerFilter{
+	border: 2px solid black;	
 }
+
+.containerResult{
+	border: 2px solid black;	
+}
+
+.rowSpace{
+	margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.subButton{
+	color: rgb(255, 255, 255);
+	margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left:40%;
+    margin-right: 0.5rem;	
+}
+
 #principal{
 	width: 800px;
 	margin: 0 auto;
 	color: blue;
 }
+
+.fotoMask {
+        border-radius: 50%;
+        padding: 1rem; 
+        /*rounded mx-auto d-block */
+}
+
+
+  
+#tab {
+	
+	font-size: 12px;
+}
+

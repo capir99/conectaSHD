@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+    </head>
+
+    <body>
+        <div th:fragment="addMap">
+        	<h1 class="h4 mb-4 text-gray-800">Registrar mapao</h1>  
+            
+            <div class="container">	
+	          
+	          <div class="row">	
+	            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center mapd">	
+	        		<div class="mapd-body">	
+	        			<form th:action="@{/map/addExec}" th:object="${mapa}" method="post">
+
+	        				<div class="form-group">	
+	        					<label>Nombre: </label>
+	        					<input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder="Digite el nombre del mapa" required>
+	        				</div>
+	        				
+	        				<div class="form-group">	
+	        					<label>directorio: </label>
+	        					<input type="text" name="dir" th:field="*{dir}" class="form-control" placeholder="Digite el directorio del mapa" required>
+	        				</div>
+	        				
+	        				<div class="box-footer">
+	        					<button class="btn btn-success">Guardar</button>
+	        				</div>
+	        				
+	        				
+	        			</form>
+	        		
+	        		</div>
+                </div>
+              </div>
+              
+			</div>
+
+		
+        </div>
+    </body>
+</html>

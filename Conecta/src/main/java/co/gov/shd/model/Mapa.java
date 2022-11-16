@@ -11,8 +11,10 @@ public class Mapa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "mapa_dir", length = 255)
-	private String mapa_dir;
+	@Column(name = "nombre", length = 50)
+	private String nombre;
+	@Column(name = "dir", length = 255)
+	private String dir;
 	
 	
 	
@@ -24,11 +26,18 @@ public class Mapa {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getMapa_dir() {
-		return mapa_dir;
+	
+	public String getNombre() {
+		return nombre;
 	}
-	public void setMapa_dir(String mapa_dir) {
-		this.mapa_dir = mapa_dir;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getDir() {
+		return dir;
+	}
+	public void setDir(String dir) {
+		this.dir = dir;
 	}
 	
 	
